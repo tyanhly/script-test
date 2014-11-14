@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#echo "
+##############################
+# CONFIGURATION
+##############################"
+
+PRI_SUBNET="10.0.0.0"
+PRI_NETMASK="255.255.0.0"
+PRI_BITMASK="16"
+PRI_RANGE="10.0.0.10 10.0.0.254" 
+PRI_BROADCAST="10.0.255.255"
+PRI_IP="10.0.0.1"
+
+PUB_NETMASK="255.255.0.0"
+PUB_SUBNET="192.168.30.0"
+PUB_IP="192.168.30.156"
+
+APT_PROXY_IP="192.168.120.253"
