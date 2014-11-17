@@ -1,13 +1,16 @@
 #!/usr/bin/php
 <?php
-$params = $_SERVER['argv'];
 
-if(count($params) < 1){
-   echo "Sorry, don't have this function"; die;
+require "_function.php";
+$params = $_SERVER['argv'];
+//var_dump($params);die;
+if(count($params) < 2){
+  printHeader("Sorry, don't have this function"); 
+  printHelp();
+  die;
 }
 
 $function = $params[1];
-require "_function.php";
 switch($function){
   case "ips": 
     printAllIps();
@@ -21,9 +24,17 @@ switch($function){
   case "countConn": 
     printNumberOfConnections();
     break;
+  case "runCommand": 
+    if(count($params) < 3){
+       echo "Sorry, don't have command\n"; die;
+    }
+    runCommandAllIps($params[2]);
+    break;
   case "help": 
-    echo "\nips | hexIps | conn | countConn | help\n";    
+    printHelp();
     break;
   default :
-    echo "Please type help for support";
+    printHeader("Sorry, don't have this function"); 
+    printHelp();
+    break;
 }
