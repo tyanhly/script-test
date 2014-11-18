@@ -9,10 +9,8 @@
 import socket
 import time
 import sys
-import time
-import sys
 
-target_address = ("192.168.30.99", 10000)
+target_address = ("192.168.30.56", 10000)
 
 pool = []
 rate = []
@@ -22,7 +20,7 @@ ip_count = 1
 
 for ip in range(ip_start, ip_start + ip_count ):
   ip = "192.168.30." + str(ip)
-  for port in range(0, 45000):
+  for port in range(22, 22):
     print "binding to",ip,port,len(rate)
     sock = socket.socket()
     sock.bind((ip, 0))

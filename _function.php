@@ -2,7 +2,7 @@
 //config
 
 $_port = "22";
-$_subnet = "10.0.0.0/24";
+$_subnet = "192.168.30.0/24";
 $_ips = array();
 $_hexIps = array();
 $_user = 'root';
