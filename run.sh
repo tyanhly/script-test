@@ -3,33 +3,68 @@
 
 
 PS3="Enter your choice :"
-select choice in "Run all (a)" "Configure Network" "Install DHCP" "Install TFTP" "Install NFS" "Setup tools" "Help (h)" "Quit (q)"; do
+select choice in "all - Run all: network, dhcp, tftp, nfs, tools" \
+"network - Configure Network" \
+"dhcp - Install DHCP" \
+"tftp - Install TFTP" \
+"nfs - Install NFS" \
+"tools - Setup tools" \
+"kernel - Setup kernel" \
+"restart - Restart DHCP TFTP NFS" \
+"capture - Capture" \
+"vcnn - View TCP Connections " \
+"h - Help" \
+"q - Quit"; do
 case $REPLY in
-    1|a) echo "$choice"; 
+    1|all) echo "$choice"; 
         source network.sh;
         source dhcp.sh;
         source tftp.sh;
-        source nfs.sh;;
+        source nfs.sh;
+        source setup_tool;;
 
-    2) echo "$choice"; 
+    2|network) echo "$choice"; 
         source network.sh;;
 
-    3) echo "$choice";
+    3|dhcp) echo "$choice";
         source dhcp.sh;;
 
-    4) echo "$choice";
+    4|tptp) echo "$choice";
         source tftp.sh;;
 
-    5) echo "$choice";
+    5|nfs) echo "$choice";
         source nfs.sh;;
 
-    6) echo "$choice";
+    6|tools) echo "$choice";
         source setup-tool.sh;;
 
-    7|h) echo "$choice";
+    7|kernel)
+        cat kisssysctl.conf > /etc/sysctl.conf;
+        sysctl -p;;
+
+    8|restart) echo "$choice";
+        service isc-dhcp-server restart;
+        stop tftpd-hpa;
+        start tftpd-hpa;
+        service nfs-kernel-server restart;;
+    
+    9|capture) echo "$choice"
+        DATE=`date +%Y%m%d_%H%M%S`
+        fbgrab -c 1 s1_$DATE.png;
+        fbgrab -c 2 s2_$DATE.png;
+        fbgrab -c 3 s3_$DATE.png;
+        fbgrab -c 4 s4_$DATE.png;
+        fbgrab -c 5 s5_$DATE.png;
+        fbgrab -c 6 s6_$DATE.png;;
+        
+
+    10|vcnn) echo "$choice";
+        watch -n 1 'ss -s';;
+
+    11|h) echo "$choice";
         source help.sh;;
 
-    8|q) echo "See you next time";break;;
+    12|q) echo "See you next time"; break;;
 
     *) echo "Wrong choice!";;
 esac

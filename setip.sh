@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in {1..40}
+for i in {1..50}
 do
 let "ip=$i+200"
 echo "ifconfig tungly2:$i 192.168.30.$ip"
