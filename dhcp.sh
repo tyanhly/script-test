@@ -14,14 +14,14 @@ class "allow" {
    match if substring(hardware, 1,3) = 08:00:27;
 }
 
-subnet $PRI_SUBNET netmask $PRI_NETMASK {
+subnet $PUB_SUBNET netmask $PUB_NETMASK {
   pool{
-    allow members of "allow";
+    #allow members of "allow";
     authoritative;
-    range $PRI_RANGE;
-    option broadcast-address $PRI_BROADCAST;
-    option routers $PRI_IP;
-    option domain-name-servers $PRI_IP;
+    range $PUB_RANGE;
+    option broadcast-address $PUB_BROADCAST;
+    option routers $PUB_IP;
+    option domain-name-servers $PUB_IP;
     filename "pxelinux.0";
   }
 }
