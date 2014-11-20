@@ -1,5 +1,3 @@
-clear
-
 repeat() {
     if [[ $2 -eq 0 ]]; then
       return;
@@ -21,7 +19,7 @@ function bar {
 }
 
 #fill, blank, total
-bar 10 90 100
+#bar 10 90 $LASTCOLS
 
 #echo -en "\e[0;1;31;44mIp: 192.168.30.22\e[0m\n"
 #sleep 1

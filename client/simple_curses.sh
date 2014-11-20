@@ -196,6 +196,18 @@ append(){
     done < $rbuffer
     rm -f $rbuffer
 }
+
+appendTung(){
+    text=$(echo -e $1 | fold -w $((LASTCOLS-2)) -s)
+    rbuffer=`create_buffer bashsimplecursesfilebuffer`
+    echo  -e "$text" > $rbuffer
+    while read a; do
+        _append "$a" $2
+    done < $rbuffer
+    rm -f $rbuffer
+}
+
+
 _append(){
     clean_line
     tput sc
