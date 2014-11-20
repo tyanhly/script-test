@@ -35,6 +35,11 @@ B. Checking
     ifconfig tungly $PRI_IP
     showmount -e $PRI_IP
     mount $PRI_IP:/nfsroot /mnt
+  4. Check network devices
+    lspci | egrep -i --color 'ethernet|network'
+    lshw --class network
+    ls /sys/class/net
+    [switch]: ip link set [name] up
 
 "
       

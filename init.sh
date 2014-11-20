@@ -5,6 +5,8 @@ echo "
 ##############################"
 echo "#Acquire::http::proxy \"http://$APT_PROXY_IP:3142\";" > /etc/apt/apt.conf;
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+
+
 git config --global user.name "tyanhly"
 git config --global user.email tyanhly@example.com
 git config --global push.default simple
