@@ -25,7 +25,7 @@ case $REPLY in
 
     2|network) echo "$choice"; 
         source network.sh;
-        ./main.php setupClients;
+        source setupClients.sh;
 
     3|dhcp) echo "$choice";
         source dhcp.sh;;
