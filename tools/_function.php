@@ -1,7 +1,7 @@
 <?php
 
 //config f 
-$configs = parse_ini_file("../config.conf");
+$configs = parse_ini_file(__DIR__ . "/../config.sh");
 
  
 $_port   =$configs["SEARCH_PORT"];
@@ -235,7 +235,7 @@ function getClientIpsFromClientPriIp($ip){
         $newIp = implode(".", $arrIp);
         $clientIps[] = $newIp;
     }
-    return $clientIps
+    return $clientIps;
 }
 
 function creatNetworkSetupFileForClients(){

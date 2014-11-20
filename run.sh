@@ -14,6 +14,7 @@ select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
 "setupClients - Setup Clients" \
 "capture - Capture" \
 "vcnn - View TCP Connections " \
+"clients - Show all clients" \
 "h - Help" \
 "q - Quit"; do
 case $REPLY in
@@ -64,11 +65,15 @@ case $REPLY in
 
     11|vcnn) echo "$choice";
         watch -n 1 'ss -s';;
+    
+    12|clients) echo "$choice";
+        ./tools/main.php ips;;
 
-    12|h) echo "$choice";
+
+    13|h) echo "$choice";
         source help.sh;;
 
-    12|q) echo "See you next time"; break;;
+    14|q) echo "See you next time"; break;;
 
     *) echo "Wrong choice!";;
 esac
