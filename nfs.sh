@@ -11,9 +11,9 @@ echo "
 apt-get -y install nfs-kernel-server
 
 mkdir /nfsroot/live -p
-cp $PRI_NFS_OS_FILE /nfsroot/live
+cp $PUB_NFS_OS_FILE /nfsroot/live
 cat <<EOF >/etc/exports
-/nfsroot  $PRI_SUBNET/$PRI_NFS_BITMASK(fsid=0,ro,no_root_squash,insecure,no_subtree_check)
+/nfsroot  $PUB_SUBNET/$PUB_NFS_BITMASK(fsid=0,ro,no_root_squash,insecure,no_subtree_check)
 EOF
 
 exportfs -a
