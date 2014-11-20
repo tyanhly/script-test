@@ -4,7 +4,7 @@
 
 PS3="Enter your choice :"
 select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
-"network - Configure Network" \
+"network - Configure Network For Server, Prepair for connection clients" \
 "dhcp - Install DHCP" \
 "tftp - Install TFTP" \
 "nfs - Install NFS" \
@@ -24,7 +24,8 @@ case $REPLY in
         source setup_tool;;
 
     2|network) echo "$choice"; 
-        source network.sh;;
+        source network.sh;
+        ./main.php setupClients;
 
     3|dhcp) echo "$choice";
         source dhcp.sh;;

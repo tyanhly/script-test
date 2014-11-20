@@ -27,10 +27,20 @@ PUB_IP="192.168.30.156"
 
 APT_PROXY_IP="192.168.120.253"
 
-#####Using cp code to client
+#########################
+# CLIENT SETUP
+###################3
 SEARCH_PORT=22
 SEARCH_SUBNET="10.0.0.0/24"
+CLIENT_MOUNT_DIR="/mnt/sshfs/"
+CLIENT_SCRIPT_DIR="/mnt/"
 
+CLIENT_IP_PREFIX="10.0."
+CLIENT_IP_SUBFIX="1"
+CLIENT_IP_MID_FIRST=1
+CLIENT_IP_MID_END=40
+
+CLIENT_NETWORK_SETUP_FILE="client_network.sh"
 
 
 #echo "

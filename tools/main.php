@@ -12,6 +12,9 @@ if(count($params) < 2){
 
 $function = $params[1];
 switch($function){
+  case "setupClients":
+    setupClients();
+    break;
   case "ips": 
     printAllIps();
     break;

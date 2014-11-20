@@ -16,6 +16,16 @@ $_isDebug = $configs["IS_DEBUG"];
 $_date = date("Ymd-H") . "-" . intval(date("m")/intval($configs['MINUTES_EXPIRE_CACHE']));
 $_ipsCacheFile = $configs['TMP_DIRECTORY'] . $configs["IPS_CACHE_FILE_PREFIX"] . $_date . ".txt" ;
 $_connectionsFile = $configs['TMP_DIRECTORY'] . $configs['LAST_CONNECTIONS_FILE'];
+
+$_priInterface      = $configs['PRI_INTERFACE'];
+$_clientMountDir    = $configs['CLIENT_MOUNT_DIR'];
+$_clientScriptDir   = $configs['CLIENT_SCRIPT_DIR'];
+$_clientIpPrefix    = $configs['CLIENT_IP_PREFIX'];
+$_clientIpSubfix    = $configs['CLIENT_IP_SUBFIX'];
+$_clientIpMidFirst  = intval($configs['CLIENT_IP_MID_FIRST']);
+$_clientIpMidEnd    = intval($configs['CLIENT_IP_MID_END']);
+$_clientNetworkSetupFile = $configs['CLIENT_NETWORK_SETUP_FILE'];
+
 if(!file_exists($configs['TMP_DIRECTORY'])){
     mkdir($configs['TMP_DIRECTORY'] , 0777, true);
 }
@@ -173,6 +183,7 @@ function printNumberOfConnections(){
     printInfo("Number of Rem TCP connections: " . $rCount);
     printInfo("Done\n");
 }
+
 function printAllIps(){
     printInfo("Func: " . __METHOD__);
     $ips = getAllIps();
@@ -193,24 +204,63 @@ function printAllHexIps(){
 
 function createMountPoints(){
     $ips = getAllIps();
-    global $_user;
+    global $_user, $_clientMountDir;
     foreach($ips as $ip){
-        $dir = "/mnt/$ip";
+        $dir = $_clientMountDir . "$ip";
         `mkdir $dir -p`;
         `umount $dir`;
         `sshfs $_user@$ip:/ $dir`;
     }
 }
 
-
 function copyScriptToClients(){
+    global $_clientMountDir , $_clientScriptDir;
     $ips = getAllIps();
     foreach($ips as $ip){
-        $dir = "/mnt/$ip";
+        $dir = $_clientMountDir . $ip . $_clientScriptDir;
+        `mkdir $dir -p`;
         if(file_exists($dir)){
-            `cp -r ../client $dir`
+            $scriptDir = __DIR__ . "/../client";
+            `cp -r  $scriptDir $dir`
         }
     }
+}
+
+function getClientIpsFromClientPriIp($ip){
+    global $_clientIpMidFirst, $_clientIpMidEnd ;
+    $arrIp = explode(".", $ip);
+    $clientIps = array();
+    for($i = $_clientIpMidFirst; $i<= $_clientIpMidEnd; $i++){
+        $arrIp[2] = $ip;
+        $newIp = implode(".", $arrIp);
+        $clientIps[] = $newIp;
+    }
+    return $clientIps
+}
+
+function creatNetworkSetupFileForClients(){
+    global $_priInterface, $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
+    $ips = getAllIps();
+    
+    foreach($ips as $ip){
+        $scriptDir = $_clientMountDir . $ip . $_clientScriptDir;
+        $clientIps = getClientIpsFromClientPriIp($ip);
+        $arrTmpScriptContent = array();
+        
+        //Create File Network setup
+        $i=0;
+        foreach($clientIps as $ip){
+            $arrTmpScriptContent[]  = "ifconfig $_priInterface:$i $ip";
+        }
+        $content = implode("\n", $arrTmpScriptContent);
+        file_put_contents($scriptDir . $_clientNetworkSetupFile, $content);
+    }
+}
+
+function setupClients(){
+    createMountPoints();
+    copyScriptToclients();
+    creatNetworkSetupFileForClients();
 }
 
 function printIpConnections(){
@@ -269,5 +319,5 @@ function printMsg($msg){
 }
 
 function printHelp(){
-    printMsg("ips | hexIps | conn | countConn | runCommand '<linuxCommand>' | help\n");   
+    printMsg("setupClients", "ips | hexIps | conn | countConn | runCommand '<linuxCommand>' | help\n");   
 }
