@@ -231,7 +231,7 @@ function getClientIpsFromClientPriIp($ip){
     $arrIp = explode(".", $ip);
     $clientIps = array();
     for($i = $_clientIpMidFirst; $i<= $_clientIpMidEnd; $i++){
-        $arrIp[2] = $ip;
+        $arrIp[2] = $i;
         $newIp = implode(".", $arrIp);
         $clientIps[] = $newIp;
     }
