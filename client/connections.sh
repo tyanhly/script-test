@@ -1,0 +1,6 @@
+echo "IP         connections  rate     max"
+echo "10.0.1.2   150c         15c/s    5000"
+echo "10.0.2.2   150c         15c/s    5000"
+echo "10.0.3.2   150c         15c/s    5000"
+echo "10.0.4.2   150c         15c/s    5000"
+echo "10.0.5.2   150c         15c/s    5000"

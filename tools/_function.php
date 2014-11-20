@@ -250,7 +250,9 @@ function creatNetworkSetupFileForClients(){
         //Create File Network setup
         $i=0;
         foreach($clientIps as $ip){
+
             $arrTmpScriptContent[]  = "ifconfig $_priInterface:$i $ip";
+            $i++;
         }
         $content = implode("\n", $arrTmpScriptContent);
         file_put_contents($scriptDir . $_clientNetworkSetupFile, $content);

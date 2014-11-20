@@ -1,0 +1,14 @@
+command_center_input.sh
+command_center_output.txt
+command_center.sh
+command.sh
+connections.sh
+cpu.sh
+loop.sh
+m
+m~
+main.sh
+ram.sh
+simple_curses.sh
+test.sh
+tmp.tmp
