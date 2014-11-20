@@ -4,13 +4,14 @@
 
 PS3="Enter your choice :"
 select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
-"network - Configure Network For Server, Prepair for connection clients" \
+"network - Configure Network For Server" \
 "dhcp - Install DHCP" \
 "tftp - Install TFTP" \
 "nfs - Install NFS" \
 "tools - Setup tools" \
 "kernel - Setup kernel" \
 "restart - Restart DHCP TFTP NFS" \
+"setupClients - Setup Clients" \
 "capture - Capture" \
 "vcnn - View TCP Connections " \
 "h - Help" \
@@ -24,8 +25,7 @@ case $REPLY in
 #        source setup_tool.sh;;
 
     2|network) echo "$choice"; 
-        source network.sh;
-        source setupClients.sh;;
+        source network.sh;;
 
     3|dhcp) echo "$choice";
         source dhcp.sh;;
@@ -49,7 +49,10 @@ case $REPLY in
         start tftpd-hpa;
         service nfs-kernel-server restart;;
     
-    9|capture) echo "$choice"
+    9|setupClients) echo "$choice"
+        source setup_clients.sh;;
+
+    10|capture) echo "$choice"
         DATE=`date +%Y%m%d_%H%M%S`
         fbgrab -c 1 s1_$DATE.png;
         fbgrab -c 2 s2_$DATE.png;
@@ -59,10 +62,10 @@ case $REPLY in
         fbgrab -c 6 s6_$DATE.png;;
         
 
-    10|vcnn) echo "$choice";
+    11|vcnn) echo "$choice";
         watch -n 1 'ss -s';;
 
-    11|h) echo "$choice";
+    12|h) echo "$choice";
         source help.sh;;
 
     12|q) echo "See you next time"; break;;
