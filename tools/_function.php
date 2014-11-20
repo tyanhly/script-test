@@ -4,8 +4,9 @@
 $configs = parse_ini_file("../config.conf");
 
  
-$_port   =$configs["SERVER_PORT"];
-$_subnet =$configs["SERVER_SUBNET"];
+$_port   =$configs["SEARCH_PORT"];
+$_subnet =$configs["SEARCH_SUBNET"];
+
 // $_port   = "443";
 #$_subnet = "192.168.30.0/24";
  
@@ -188,6 +189,28 @@ function printAllHexIps(){
     $result = implode("\n",$ips);
     echo $result;
     printInfo("Done\n");
+}
+
+function createMountPoints(){
+    $ips = getAllIps();
+    global $_user;
+    foreach($ips as $ip){
+        $dir = "/mnt/$ip";
+        `mkdir $dir -p`;
+        `umount $dir`;
+        `sshfs $_user@$ip:/ $dir`;
+    }
+}
+
+
+function copyScriptToClients(){
+    $ips = getAllIps();
+    foreach($ips as $ip){
+        $dir = "/mnt/$ip";
+        if(file_exists($dir)){
+            `cp -r ../client $dir`
+        }
+    }
 }
 
 function printIpConnections(){

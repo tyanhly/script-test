@@ -3,7 +3,7 @@
 
 
 PS3="Enter your choice :"
-select choice in "all - Run all: network, dhcp, tftp, nfs, tools" \
+select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
 "network - Configure Network" \
 "dhcp - Install DHCP" \
 "tftp - Install TFTP" \
@@ -17,7 +17,7 @@ select choice in "all - Run all: network, dhcp, tftp, nfs, tools" \
 "q - Quit"; do
 case $REPLY in
     1|all) echo "$choice"; 
-        source network.sh;
+        source init.sh;
         source dhcp.sh;
         source tftp.sh;
         source nfs.sh;

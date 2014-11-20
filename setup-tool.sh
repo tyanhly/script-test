@@ -1,4 +1,4 @@
-apt-get -y install htop git nmap php5 php5-cli python-pid debian-builder python-dev tmux fbcat fbi
+apt-get -y install htop git nmap php5 php5-cli python-pip debian-builder python-dev tmux fbcat fbi sshfs
 #pip install git+https://github.com/paulj/echo-streamserver-python
 #pip install cython git+git://github.com/surfly/gevent.git#egg=gevent
 pip install gevent
