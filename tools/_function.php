@@ -221,7 +221,7 @@ function copyScriptToClients(){
         `mkdir $dir -p`;
         if(file_exists($dir)){
             $scriptDir = __DIR__ . "/../client";
-            `cp -r  $scriptDir $dir`
+            `cp -r  $scriptDir $dir`;
         }
     }
 }
