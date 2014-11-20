@@ -1,1 +1,1 @@
-./main.php setupClients
+./tools/main.php setupClients

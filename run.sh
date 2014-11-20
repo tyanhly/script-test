@@ -67,7 +67,7 @@ case $REPLY in
         watch -n 1 'ss -s';;
     
     12|clients) echo "$choice";
-        ./main.php ips;;
+        ./tools/main.php ips;;
 
 
     13|h) echo "$choice";
