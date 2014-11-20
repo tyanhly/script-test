@@ -20,8 +20,8 @@ case $REPLY in
         source init.sh;
         source dhcp.sh;
         source tftp.sh;
-        source nfs.sh;
-        source setup_tool;;
+        source nfs.sh;;
+#        source setup_tool.sh;;
 
     2|network) echo "$choice"; 
         source network.sh;
