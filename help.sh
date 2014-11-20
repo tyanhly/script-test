@@ -41,5 +41,12 @@ B. Checking
     ls /sys/class/net
     [switch]: ip link set [name] up
 
+    ip netns add blue
+    ip netns list
+    ip link add veth0 type veth peer name veth1
+    ip link list
+    ip link set veth1 netns blue
+    ip netns exec blue ip link list
+
 "
       
