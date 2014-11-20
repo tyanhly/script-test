@@ -8,8 +8,6 @@ echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 
 ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride
-
-echo "ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK"
 ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK
 
 
