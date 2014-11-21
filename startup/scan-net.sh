@@ -14,3 +14,5 @@ fi
 if [ -n "$i3" ]; then
     ip link set $i3 up
 fi
+
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
