@@ -199,6 +199,68 @@ function printAllHexIps(){
     printInfo("Done\n");
 }
 
+function printIpConnections(){
+    printInfo("Func: " . __METHOD__);
+    $ips = getIpConnections();
+    echo "\nIp Connections: \n";
+    foreach ($ips as $ip => $record){
+        $count = $record['count'];
+        $rate = $record['rate'];
+        $max = $record['max'];
+        printInfo("$ip >> count:$count, rate: $rate, max: $max");
+    }
+    printInfo("Done\n");
+}
+
+function runRemoteCommand($ip, $command){
+    printInfo("Func: " . __METHOD__);
+    $user = getUser();
+    $cmd = "ssh $user@$ip '$command'";
+    printHeader("$ip");
+    printInfo("Run command: $cmd\n");
+    echo `$cmd`;
+    printInfo("Machine $ip run command:'$command' is done\n"); 
+}
+
+function runCommandAllIps($command){
+    printInfo("Func: " . __METHOD__);
+     $ips = getAllIps();
+#    $ips = array('localhost');
+    foreach($ips as $ip){    
+        runRemoteCommand($ip, $command );
+    }
+
+}
+
+function printInfo($msg){
+    global $_isDebug;
+    if($_isDebug){
+        $date = date("Ymd-H:m:s");
+        echo "\n$date: INFO: " . $msg;
+    }else{
+        echo "\n$msg";
+    }
+}
+
+
+function printHeader($header){
+    $header = strtoupper($header);
+    echo "\n*******************************\n";
+    echo "\n        $header \n";
+    echo "\n*******************************\n";
+}
+
+function printMsg($msg){
+    echo "\n$msg";
+}
+
+function printHelp(){
+    printMsg("setupClients", "ips | hexIps | conn | countConn | runCommand '<linuxCommand>' | help\n");   
+}
+
+
+
+
 function createMountPoints(){
     $ips = getAllIps();
     global $_user, $_clientMountDir;
@@ -278,63 +340,4 @@ function setupClients(){
     copyScriptToclients();
     creatNetworkSetupFileForClients();
     setupIpsForClients();
-}
-
-function printIpConnections(){
-    printInfo("Func: " . __METHOD__);
-    $ips = getIpConnections();
-    echo "\nIp Connections: \n";
-    foreach ($ips as $ip => $record){
-        $count = $record['count'];
-        $rate = $record['rate'];
-        $max = $record['max'];
-        printInfo("$ip >> count:$count, rate: $rate, max: $max");
-    }
-    printInfo("Done\n");
-}
-
-function runRemoteCommand($ip, $command){
-    printInfo("Func: " . __METHOD__);
-    $user = getUser();
-    $cmd = "ssh $user@$ip '$command'";
-    printHeader("$ip");
-    printInfo("Run command: $cmd\n");
-    echo `$cmd`;
-    printInfo("Machine $ip run command:'$command' is done\n"); 
-}
-
-function runCommandAllIps($command){
-    printInfo("Func: " . __METHOD__);
-     $ips = getAllIps();
-#    $ips = array('localhost');
-    foreach($ips as $ip){    
-        runRemoteCommand($ip, $command );
-    }
-
-}
-
-function printInfo($msg){
-    global $_isDebug;
-    if($_isDebug){
-        $date = date("Ymd-H:m:s");
-        echo "\n$date: INFO: " . $msg;
-    }else{
-        echo "\n$msg";
-    }
-}
-
-
-function printHeader($header){
-    $header = strtoupper($header);
-    echo "\n*******************************\n";
-    echo "\n        $header \n";
-    echo "\n*******************************\n";
-}
-
-function printMsg($msg){
-    echo "\n$msg";
-}
-
-function printHelp(){
-    printMsg("setupClients", "ips | hexIps | conn | countConn | runCommand '<linuxCommand>' | help\n");   
 }

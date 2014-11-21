@@ -73,8 +73,7 @@ case $REPLY in
         ./tools/main.php ips;;
     13|testDhcp) echo "$choice";
         source config.sh;
-        apt-get install dhcping;
-        echo "dhcping -s $PUB_IP";;
+        dhclient -nw -v $PUB_IP;;
    
     14|testTftp) echo "$choice";
         apt-get install tftp;
@@ -84,8 +83,9 @@ case $REPLY in
     15|testNfs) echo "$choice";
         apt-get install nfs-common portmap;
         source config.sh;
+        echo "mount $PUB_IP/nfsroot /tmp/nfsroot ";
         echo "showmount -e $PUB_IP";
-        echo "mount $PUB_IP/nfsroot /tmp/nfsroot ";;
+        showmount -e $PUB_IP;;
 
 
     16|h) echo "$choice";

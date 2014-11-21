@@ -26,7 +26,7 @@ APT_PROXY_IP="192.168.120.253"
 #########################
 # CLIENT SETUP
 ###################3
-SEARCH_PORT=22
+SEARCH_PORT=22222
 SEARCH_SUBNET="192.168.30.0/24"
 CLIENT_MOUNT_DIR="/mnt/sshfs/"
 CLIENT_SCRIPT_DIR="/tmp/"
