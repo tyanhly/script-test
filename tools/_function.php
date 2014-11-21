@@ -242,9 +242,9 @@ function creatNetworkSetupFileForClients(){
         $clientIps = getClientIpsFromClientPriIp($ip);
         $arrTmpScriptContent = array();
         
-         $arrTmpScriptContent[] = "ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride"
-         $arrTmpScriptContent[] = "ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK"
-         $arrTmpScriptContent[] = "ifconfig $PUB_INTERFACE $PUB_IP netmask $PUB_NETMASK"
+         $arrTmpScriptContent[] = "ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride";
+         $arrTmpScriptContent[] = "ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK";
+         $arrTmpScriptContent[] = "ifconfig $PUB_INTERFACE $PUB_IP netmask $PUB_NETMASK";
 
         //Create File Network setup
         $i=0;
