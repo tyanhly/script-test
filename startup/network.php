@@ -49,9 +49,9 @@ if($result){
        $subnet = explode(".", $result[1]);
        unset($subnet[3]);
        $subnet = implode(".", $subnet) . ".0/24";
-       $cmd=`nmap --open -n -p 2049 $subnet | grep "scan report for"| awk '{print $1}'`;
-       if($cmd){
-           `echo "$cmd >> /tmp/kiss_server_ip"`;
+       $cmd=`nmap --open -n -p 2049 $subnet | grep "scan report for"| awk '{print $5}'`;
+       if($cmd =trim($cmd)){
+           `echo "$cmd > /tmp/kiss_server_ip"`;
            `echo "$cmd kiss.server" >> /etc/hosts`;
        }
     }
