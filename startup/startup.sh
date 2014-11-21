@@ -14,5 +14,5 @@ if [ ! -f /tmp/kiss_startup_check ]; then
   git config --global user.email tyanhly@yahoo.com
   git config --global push.default simple
   touch /tmp/kiss_startup_check
-
+  clear
 fi

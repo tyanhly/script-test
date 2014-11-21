@@ -3,15 +3,14 @@
 
 
 PS3="Enter your choice :"
-select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
+select choice in \
+"all - Run all: dhcp, tftp, nfs" \
 "network - Configure Network For Server" \
 "dhcp - Install DHCP" \
 "tftp - Install TFTP" \
 "nfs - Install NFS" \
-"tools - Setup tools" \
 "kernel - Setup kernel" \
 "restart - Restart DHCP TFTP NFS" \
-"setupClients - Setup Clients" \
 "capture - Capture" \
 "vcnn - View TCP Connections " \
 "clients - Show all clients" \
@@ -22,11 +21,9 @@ select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
 "q - Quit"; do
 case $REPLY in
     1|all) echo "$choice"; 
-        source init.sh;
         source dhcp.sh;
         source tftp.sh;
         source nfs.sh;;
-#        source setup_tool.sh;;
 
     2|network) echo "$choice"; 
         source network.sh;;
@@ -40,23 +37,17 @@ case $REPLY in
     5|nfs) echo "$choice";
         source nfs.sh;;
 
-    6|tools) echo "$choice";
-        source setup-tool.sh;;
-
-    7|kernel)
+    6|kernel)
         cat kisssysctl.conf > /etc/sysctl.conf;
         sysctl -p;;
 
-    8|restart) echo "$choice";
+    7|restart) echo "$choice";
         service isc-dhcp-server restart;
         stop tftpd-hpa;
         start tftpd-hpa;
         service nfs-kernel-server restart;;
     
-    9|setupClients) echo "$choice"
-        source setup_clients.sh;;
-
-    10|capture) echo "$choice"
+    8|capture) echo "$choice"
         DATE=`date +%Y%m%d_%H%M%S`
         fbgrab -c 1 s1_$DATE.png;
         fbgrab -c 2 s2_$DATE.png;
@@ -66,21 +57,21 @@ case $REPLY in
         fbgrab -c 6 s6_$DATE.png;;
         
 
-    11|vcnn) echo "$choice";
+    9|vcnn) echo "$choice";
         watch -n 1 'ss -s';;
     
-    12|clients) echo "$choice";
+    10|clients) echo "$choice";
         ./tools/main.php ips;;
-    13|testDhcp) echo "$choice";
+    11|testDhcp) echo "$choice";
         source config.sh;
         dhclient -nw -v $PUB_IP;;
    
-    14|testTftp) echo "$choice";
+    12|testTftp) echo "$choice";
         apt-get install tftp;
         source config.sh;
         echo get pxelinux.0 | tftp $PUB_IP ;;
 
-    15|testNfs) echo "$choice";
+    13|testNfs) echo "$choice";
         apt-get install nfs-common portmap;
         source config.sh;
         echo "mount $PUB_IP/nfsroot /tmp/nfsroot ";
@@ -88,10 +79,10 @@ case $REPLY in
         showmount -e $PUB_IP;;
 
 
-    16|h) echo "$choice";
+    14|h) echo "$choice";
         source help.sh;;
 
-    17|q) echo "See you next time"; break;;
+    15|q) echo "See you next time"; break;;
 
     *) echo "Wrong choice!";;
 esac
