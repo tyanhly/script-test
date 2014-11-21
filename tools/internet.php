@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-$devices = explode("\n",trim(`cat /proc/net/dev | grep 'lo' -v | grep ":"`));
+$devices = explode(" ",trim(`ls /sys/class/net`));
 
 foreach($devices as $k => $v) {
    $v = explode(":", $v)[0];

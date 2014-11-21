@@ -40,6 +40,8 @@ function getUser(){
     return $_user;
 }
 
+
+
 function getPort(){
     printInfo("Func: " . __METHOD__);
     global $_port;
@@ -215,7 +217,7 @@ function copyScriptToClients(){
         $dir = $_clientMountDir . $ip . $_clientScriptDir;
         `mkdir $dir -p`;
         if(file_exists($dir)){
-            $scriptDir = __DIR__ . "/../client";
+            $scriptDir = __DIR__ . "/../../script-test";
             `cp -r  $scriptDir $dir`;
         }
     }
@@ -234,23 +236,21 @@ function getClientIpsFromClientPriIp($ip){
 }
 
 function creatNetworkSetupFileForClients(){
-    global $_priInterface, $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
+    global $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
     $ips = getAllIps();
     
     foreach($ips as $ip){
         $scriptDir = $_clientMountDir . $ip . $_clientScriptDir;
         $clientIps = getClientIpsFromClientPriIp($ip);
         $arrTmpScriptContent = array();
-        
-         $arrTmpScriptContent[] = "ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride";
-         $arrTmpScriptContent[] = "ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK";
-         $arrTmpScriptContent[] = "ifconfig $PUB_INTERFACE $PUB_IP netmask $PUB_NETMASK";
-
         //Create File Network setup
         $i=0;
         foreach($clientIps as $ip){
-
-            $arrTmpScriptContent[]  = "ifconfig $_priInterface:$i $ip";
+            runRemoteCommand($ip, "$_clientScriptDir/client/network.php");
+            sleep(0.5);
+            $interface = file_get_contents($_clientMountDir . $ip .'/tmp/kissinterface');
+            
+            $arrTmpScriptContent[]  = "ifconfig $interface:$i $ip";
             $i++;
         }
         $content = implode("\n", $arrTmpScriptContent);
@@ -270,6 +270,7 @@ function setIpsForClients(){
        runRemoteCommand($ip,$cmd);
     }
 }
+
 
 
 function setupClients(){
