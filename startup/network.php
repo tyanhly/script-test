@@ -42,8 +42,8 @@ if($result){
     $cmd = "ip route add default via {$result[1]}";
     echo $cmd . "\n" ;
     `$cmd`;
-    file_put_contents("/tmp/kiss_ip",$result[1]);
-    file_put_contents("/tmp/kiss_interface",$result[0]);
+    file_put_contents($configs['CLIENT_KISS_IP_FILE'],$result[1]);
+    file_put_contents($configs['CLIENT_KISS_IF_FILE'],$result[0]);
     
     if($result[2]=='client'){
        $subnet = explode(".", $result[1]);
@@ -51,8 +51,10 @@ if($result){
        $subnet = implode(".", $subnet) . ".0/24";
        $cmd=`nmap --open -n -p 2049 $subnet | grep "scan report for"| awk '{print $1}'`;
        if($cmd){
-           `echo "$cmd >> /tmp/kiss_server_ip"`;
-           `echo "$cmd kiss.server" >> /etc/hosts`;
+           $serIpFile = $configs['CLIENT_KISS_SERVER_IP_FILE'];
+           $serName = $configs['SERVER_KISS_NAME'];
+           `echo "$cmd >> $serIpFile"`;
+           `echo "$cmd $serName" >> /etc/hosts`;
        }
     }
 }

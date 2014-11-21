@@ -1,8 +1,12 @@
 #!/bin/bash 
+dir=$(dirname $0)
+echo $dir
+source $dir/../../config.sh
+
 _SEQUENCE="hello"
 while [ 1 ]; do
 
-SEQUENCE=$(wget http://localhost/abc.html -q -O -)
+SEQUENCE=$(wget http://$SERVER_KISS_NAME/SERVER_KISS_COMMAND_FILE -q -O -)
 
 if [ "$_SEQUENCE" != "$SEQUENCE" ]
 then
