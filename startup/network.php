@@ -49,7 +49,7 @@ if($result){
        $subnet = explode(".", $result[1]);
        unset($subnet[3]);
        $subnet = implode(".", $subnet) . ".0/24";
-       $cmd=`nmap --open -n -p 2049 $subnet | grep "scan report for"| awk '{print $1}'`;
+       $cmd=`nmap --open -n -p 2049 $subnet | grep "scan report for"| awk '{print $5}'`;
        if($cmd){
            $serIpFile = $configs['CLIENT_KISS_SERVER_IP_FILE'];
            $serName = $configs['SERVER_KISS_NAME'];
