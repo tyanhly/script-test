@@ -1,6 +1,6 @@
 #!/bin/bash
-dir=$(dirname $SOURCE_BASH[0])
-
+dir=$(dirname $0)
+echo $dir
 source $dir/scan-net.sh
 $dir/network.php
 
