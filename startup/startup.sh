@@ -5,7 +5,7 @@ if [ ! -f /tmp/kiss_startup_check ]; then
   echo $dir
   source $dir/scan-net.sh
   $dir/network.php
-
+  
   ulimit -n 10000000
   cat kisssysctl.conf > /etc/sysctl.conf
   sysctl -p
@@ -14,5 +14,7 @@ if [ ! -f /tmp/kiss_startup_check ]; then
   git config --global user.email tyanhly@yahoo.com
   git config --global push.default simple
   touch /tmp/kiss_startup_check
+  $dir/../client/run/loop.sh
+  $dir/../client/loop.sh
   clear
 fi
