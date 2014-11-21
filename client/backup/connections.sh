@@ -1,8 +1,7 @@
-echo "`ifconfig | grep "inet addr" | sed -e "y/:/ /" | awk '{print $3}'`" > /tmp/kiss_ips.data
+echo "`ifconfig | grep "inet addr" | sed -e "y/:/ /" | awk '{print $3}'`" > /tmp/ips.dmesg
 
 lastConnections=`cat /tmp/ip_connections.data || touch /tmp/ip_connections.data`
-echo "" > /tmp/kiss_ip_connections.data
-echo "" > /tmp/kiss_ip_connections.show
+echo "" > /tmp/ip_connections.data
 currentTime=`date +%s`
 while read line; do
    amount=`ss -t | grep $line -c`   
@@ -16,8 +15,8 @@ while read line; do
        fi
    fi
 
-   echo "$line $amount $currentTime" >> /tmp/kiss_ip_connections.data   
-   printf '%-20s %-10s %-10s\n' $line $amount $rate >> /tmp/kiss_ip_connections.show   
-done < /tmp/kiss_ips.data
-printf '%-20s %-10s %-10s\n' "IP" "Amount" "Rate"
-tail -n 40 /tmp/kiss_ip_connections.show
+   echo "$line $amount $currentTime" >> /tmp/ip_connections.data   
+   printf '%-20s %-10s %-10s\\n\n' $line $amount $rate >> /tmp/ip_connections.show   
+done < /tmp/ips.dmesg
+printf '%-20s %-10s %-10s\n\\n' "IP" "Amount" "Rate"
+tail -n 40 /tmp/ip_connections.show

@@ -1,22 +1,18 @@
 #!/bin/bash 
 
-_SEQUENCE="MD5"
 while [ 1 ]; do
 clear
-source cpu.sh
-source ram.sh
+echo -n -e "\E[01;32m"
+echo "============ Connections ========================"
+echo -n -e "\E[01;37m"
 source connections.sh
-source command_center_input.sh
-cat command_center_output.txt
-
-SEQUENCE="`md5sum command.sh`"
-SEQUENCE=${SEQUENCE% *}
-
-if [ $_SEQUENCE != $SEQUENCE ]
-then
-    _SEQUENCE=$SEQUENCE
-    source command_center.sh | tail -c 1000 > command_center_output.txt
-fi
-sleep 1
-
+echo -n -e "\E[01;31m"
+echo "============ Command Center ====================="
+echo -n -e "\E[01;37m"
+cat /tmp/kiss_client_command.sh | tail -n 4
+echo -n -e "\E[01;31m"
+echo "============ Command Center Output =============="
+echo -n -e "\E[01;37m"
+cat /tmp/kiss_client_command.output | tail -n 10
+sleep 2
 done
