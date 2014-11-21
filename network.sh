@@ -7,12 +7,12 @@ echo "
 
 
 i=0
-for ((MID=$PRE_IP_MID_FIRST; $PRI_IP_MID_END>=MID; MID++,i++))
+for ((MID=$PUB_IP_MID_FIRST; $PUB_IP_MID_END>=MID; MID++,i++))
 do
   #let "i=$i+1"
-  echo "ifconfig $PRI_INTERFACE:$i $PRI_IP_PREFIX$MID.$PRI_IP_SUBFIX"
-  ifconfig $PRI_INTERFACE:$i $PRI_IP_PREFIX$MID.$PRI_IP_SUBFIX
+  echo "ifconfig $PUB_INTERFACE:$i $PUB_IP_PREFIX$MID"
+  ifconfig $PUB_INTERFACE:$i $PUB_IP_PREFIX$MID
 done
 
 #route del default
-#ip route add default via $PRI_IP
+#ip route add default via $PUB_IP

@@ -17,7 +17,7 @@ class "allow" {
 subnet $PUB_SUBNET netmask $PUB_NETMASK {
   pool{
     #allow members of "allow";
-    authoritative;
+    #authoritative;
     range $PUB_RANGE;
     option broadcast-address $PUB_BROADCAST;
     option routers $PUB_IP;

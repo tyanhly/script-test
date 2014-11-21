@@ -3,12 +3,12 @@ echo "
 ##############################
 # NETWORK
 ##############################"
-echo "#Acquire::http::proxy \"http://$APT_PROXY_IP:3142\";" > /etc/apt/apt.conf;
+#echo "#Acquire::http::proxy \"http://$APT_PROXY_IP:3142\";" > /etc/apt/apt.conf;
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 
-ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride
-ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK
+#ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride
+#ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK
 
 
 echo "ifconfig $PUB_INTERFACE  $PUB_IP netmask $PUB_NETMASK"
