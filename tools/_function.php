@@ -17,7 +17,6 @@ $_date = date("Ymd-H") . "-" . intval(date("m")/intval($configs['MINUTES_EXPIRE_
 $_ipsCacheFile = $configs['TMP_DIRECTORY'] . $configs["IPS_CACHE_FILE_PREFIX"] . $_date . ".txt" ;
 $_connectionsFile = $configs['TMP_DIRECTORY'] . $configs['LAST_CONNECTIONS_FILE'];
 
-$_priInterface      = $configs['PRI_INTERFACE'];
 $_clientMountDir    = $configs['CLIENT_MOUNT_DIR'];
 $_clientScriptDir   = $configs['CLIENT_SCRIPT_DIR'];
 $_clientIpPrefix    = $configs['CLIENT_IP_PREFIX'];
@@ -261,7 +260,7 @@ function creatNetworkSetupFileForClients(){
 
 
 function setIpsForClients(){
-    global $_priInterface, $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
+    global $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
     
     $ips = getAllIps();
     $cmd = "/bin/bash $_clientScriptDir.$_clientNetworkSetupFile";
