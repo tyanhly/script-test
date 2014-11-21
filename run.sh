@@ -15,6 +15,9 @@ select choice in "all - Run all: init, dhcp, tftp, nfs, tools" \
 "capture - Capture" \
 "vcnn - View TCP Connections " \
 "clients - Show all clients" \
+"test-dhcp - Test DHCP"\
+"test-tftp - Test TFTP"\
+"test-nfs - Test NFS"\
 "h - Help" \
 "q - Quit"; do
 case $REPLY in
@@ -68,12 +71,27 @@ case $REPLY in
     
     12|clients) echo "$choice";
         ./tools/main.php ips;;
+    13|test-dhcp) echo "$choice";
+        source config.sh;
+        apt-get install dhcping;
+        echo "dhcping -s $PUB_IP";;
+   
+    14|test-tftp) echo "$choice";
+        apt-get install tftp;
+        source config.sh;
+        echo get pxelinux.0 | tftp $PUB_IP ;;
+
+    15|test-nfs) echo "$choice";
+        apt-get install nfs-common portmap;
+        source config.sh;
+        echo "showmount -e $PUB_IP";
+        echo "mount $PUB_IP/nfsroot /tmp/nfsroot ";;
 
 
-    13|h) echo "$choice";
+    16|h) echo "$choice";
         source help.sh;;
 
-    14|q) echo "See you next time"; break;;
+    17|q) echo "See you next time"; break;;
 
     *) echo "Wrong choice!";;
 esac
