@@ -2,9 +2,9 @@
 for i in {1..50}
 do
 let "ip=$i+200"
-echo "ifconfig tungly2:$i 192.168.30.$ip"
+echo "ifconfig eth0:$i 192.168.31.$ip"
 
-ifconfig tungly2:$i 192.168.30.$ip
+ifconfig eth0:$i 192.168.31.$ip
 done
 
 
