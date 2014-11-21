@@ -18,7 +18,7 @@ function getInterfaceAndIpClient(){
 
             $ip = trim(substr($i, $first, $last-$first));
             $arr = array($ifname,$ip);
-            print_r($arr);die;
+            #print_r($arr);die;
             return $arr;
        }else if(strpos($i, "HWaddr")){
             $ifname = explode(" ",$i);
