@@ -169,11 +169,6 @@ function countLocalConnections(){
 
 
 
-
-
-
-
-
 function printNumberOfConnections(){
     printInfo("Func: " . __METHOD__);
     $lCount = countLocalConnections();
@@ -247,6 +242,10 @@ function creatNetworkSetupFileForClients(){
         $clientIps = getClientIpsFromClientPriIp($ip);
         $arrTmpScriptContent = array();
         
+         $arrTmpScriptContent[] = "ip link add $PRI_INTERFACE type veth peer name $PRI_INTERFACE-bride"
+         $arrTmpScriptContent[] = "ifconfig $PRI_INTERFACE $PRI_IP netmask $PRI_NETMASK"
+         $arrTmpScriptContent[] = "ifconfig $PUB_INTERFACE $PUB_IP netmask $PUB_NETMASK"
+
         //Create File Network setup
         $i=0;
         foreach($clientIps as $ip){
@@ -256,13 +255,28 @@ function creatNetworkSetupFileForClients(){
         }
         $content = implode("\n", $arrTmpScriptContent);
         file_put_contents($scriptDir . $_clientNetworkSetupFile, $content);
+        chmod($scriptDir . $_clientNetworkSetupFile, 0777);
     }
 }
+
+
+function setIpsForClients(){
+    global $_priInterface, $_clientMountDir, $_clientNetworkSetupFile, $_clientScriptDir ;
+    
+    $ips = getAllIps();
+    $cmd = "/bin/bash $_clientScriptDir.$_clientNetworkSetupFile";
+    
+    foreach($ips as $ip){
+       runRemoteCommand($ip,$cmd);
+    }
+}
+
 
 function setupClients(){
     createMountPoints();
     copyScriptToclients();
     creatNetworkSetupFileForClients();
+    setupIpsForClients();
 }
 
 function printIpConnections(){

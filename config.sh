@@ -18,7 +18,7 @@ PRE_IP_MID_FIRST=201
 PRI_IP_MID_END=240
 ######nfs
 
-PUB_NFS_BITMASK="16"
+PUB_NFS_BITMASK="24"
 PUB_NFS_OS_FILE="/mnt/two/live/filesystem.squashfs"
 
 PUB_INTERFACE="eth0"
@@ -27,9 +27,7 @@ PUB_RANGE="192.168.30.200 192.168.30.254"
 PUB_BROADCAST="192.168.30.255"
 PUB_SUBNET="192.168.30.0"
 PUB_IP="192.168.30.156"
-
 APT_PROXY_IP="192.168.120.253"
-
 #########################
 # CLIENT SETUP
 ###################3
