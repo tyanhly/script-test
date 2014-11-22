@@ -14,7 +14,6 @@ if [ ! -f /tmp/kiss_startup_check ]; then
   git config --global user.email tyanhly@yahoo.com
   git config --global push.default simple
   touch /tmp/kiss_startup_check
-  $dir/../client/run/loop.sh
-  $dir/../client/loop.sh
+  $dir/../client/run/loop.sh > /dev/null 2> /dev/null &
   clear
 fi

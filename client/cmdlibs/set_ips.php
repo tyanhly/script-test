@@ -10,7 +10,7 @@ if(count($params) < 2){
 }
 $configs = parse_ini_file(__DIR__ . '/../../config.sh');
 
-if(!file_exists($configs['CLIENT_KISS_IP_FILE'] || !file_exists($configs['CLIENT_KISS_IP_FILE'])){ 
+if(!file_exists($configs['CLIENT_KISS_IP_FILE']) || !file_exists($configs['CLIENT_KISS_IP_FILE'])){ 
     $cmd = __DIR__ . '/../../startup/network.php';
     `$cmd`
 }
@@ -20,7 +20,7 @@ $arrIp = explode(".", trim($ip));
 $start = intval($params[1]);
 $end = intval($params[2]);
 
-for($j=0;$i = $start, $i <= $end; $i++;$j++){
+for($j=0,$i = $start; $i <= $end; $i++,$j++){
  	$arrIp[2] = $i;
 	$newIp = implode(".", $arrIp);
 	$cmd ="ifconfig $if:$j $newIp";
