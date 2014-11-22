@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 $params = $_SERVER['argv'];
@@ -12,7 +13,7 @@ $configs = parse_ini_file(__DIR__ . '/../../config.sh');
 
 if(!file_exists($configs['CLIENT_KISS_IP_FILE']) || !file_exists($configs['CLIENT_KISS_IP_FILE'])){ 
     $cmd = __DIR__ . '/../../startup/network.php';
-    `$cmd`
+    `$cmd`;
 }
 $ip = file_get_contents($configs['CLIENT_KISS_IP_FILE']);
 $if = file_get_contents($configs['CLIENT_KISS_IF_FILE']);
