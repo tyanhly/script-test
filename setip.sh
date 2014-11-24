@@ -1,10 +1,11 @@
 #!/bin/bash
-for i in {1..50}
+for i in {30..70}
 do
-let "ip=$i+200"
-echo "ifconfig eth0:$i 192.168.32.$ip"
+#et "ip=$i+200"
+let "ip=$i"
+echo "ifconfig tungly2:$i 192.168.$ip.13"
+ifconfig tungly2:$i 192.168.$ip.13
 
-ifconfig eth0:$i 192.168.32.$ip
 done
 
 

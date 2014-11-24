@@ -19,8 +19,6 @@ $_connectionsFile = $configs['TMP_DIRECTORY'] . $configs['LAST_CONNECTIONS_FILE'
 
 $_clientMountDir    = $configs['CLIENT_MOUNT_DIR'];
 $_clientScriptDir   = $configs['CLIENT_SCRIPT_DIR'];
-$_clientIpPrefix    = $configs['CLIENT_IP_PREFIX'];
-$_clientIpSubfix    = $configs['CLIENT_IP_SUBFIX'];
 $_clientIpMidFirst  = intval($configs['CLIENT_IP_MID_FIRST']);
 $_clientIpMidEnd    = intval($configs['CLIENT_IP_MID_END']);
 $_clientNetworkSetupFile = $configs['CLIENT_NETWORK_SETUP_FILE'];

@@ -17,17 +17,12 @@ connection_amount_pool = []
 rate = []
 
 ##################################################
-if len(sys.argv) < 4:
-  print "params: <server_ip_first> <server_ip_end> <server_ip_prefix> [server_port]"
+if len(sys.argv) < 2:
+  print "params: <server_server_ip> [server_port]"
   sys.exit()
 
-ip_first = int(sys.argv[1])
-ip_end = int(sys.argv[2])
-ip_prefix = sys.argv[3]
-ip_subfix = sys.argv[4]
-
-if len(sys.argv) > 5:
-  server_port = int(sys.argv[5])
+server_server_ip = sys.argv[1]
+server_port = int(sys.argv[2])
 
 ##################################################
 
@@ -52,20 +47,18 @@ def echo(sock, address):
     connection_amount_pool.append(sock)
 
 
-def server(ip) :
+def server(server_ip, server_port) :
   sock = socket.socket()
   sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-  print ip + " " + str(server_port)
-  sock.bind((ip, server_port))
+  print server_ip + " " + str(server_port)
+  sock.bind((server_ip, server_port))
   sock.listen(65000)
   while(1):
     csock, address = sock.accept()
     Greenlet.spawn(echo, csock, address)
     sleep(0)
 
-servers = []
 
-for offset in range(ip_first, ip_end):
-  servers.append(Greenlet.spawn(server, ip_prefix + str(offset) + ip_subfix))
+g = Greenlet.spawn(server, server_server_ip, server_port)
 
-gevent.joinall(servers)
+g.join()
