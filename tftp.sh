@@ -23,7 +23,9 @@ DEFAULT ubuntu
 LABEL ubuntu
 MENU LABEL ubuntu
 KERNEL vmlinuz
-APPEND bootfrom=/dev/nfs boot=live root=/dev/nfs initrd=initrd.img nfsroot=$PUB_IP:/nfsroot toram=filesystem.squashfs ip=dhcp ro
+#APPEND bootfrom=/dev/nfs boot=live root=/dev/nfs initrd=initrd.img nfsroot=$PUB_IP:/nfsroot toram=filesystem.squashfs ip=dhcp ro
+#APPEND initrd=initrd.img boot=live config biosdevname=0 union=aufs noswap noprompt vga=788 fetch=http://192.168.30.253/filesystem.squashfs
+APPEND bootfrom=/dev/nfsi biosdevname=0 boot=live root=/dev/nfs initrd=initrd.img nfsroot=$PUB_IP:/nfsroot toram=filesystem.squashfs ro
 EOF
 
 chmod -R 777 /tftpboot/
