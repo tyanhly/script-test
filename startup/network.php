@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 $configs = parse_ini_file(__DIR__ . '/../config.sh');
-#var_dump($configs);die;
+var_dump($configs);die;
 function getInterfaceAndIpClient(){
     global $configs;
     $ifconfig = `ifconfig -a`;
@@ -29,9 +29,10 @@ function getInterfaceAndIpClient(){
     }
     return null;
 }
-
+echo "Begin"
 $result = getInterfaceAndIpClient();
-#var_dump($result);die;
+
+var_dump($result);
 if($result){
     $cmd = "ifconfig {$result[0]} {$result[1]}";
     echo $cmd . "\n" ;

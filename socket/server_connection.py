@@ -24,9 +24,10 @@ if len(sys.argv) < 4:
 ip_first = int(sys.argv[1])
 ip_end = int(sys.argv[2])
 ip_prefix = sys.argv[3]
+ip_subfix = sys.argv[4]
 
-if len(sys.argv) > 4:
-  server_port = int(sys.argv[4])
+if len(sys.argv) > 5:
+  server_port = int(sys.argv[5])
 
 ##################################################
 
@@ -65,6 +66,6 @@ def server(ip) :
 servers = []
 
 for offset in range(ip_first, ip_end):
-  servers.append(Greenlet.spawn(server, ip_prefix + str(offset)))
+  servers.append(Greenlet.spawn(server, ip_prefix + str(offset) + ip_subfix))
 
 gevent.joinall(servers)
